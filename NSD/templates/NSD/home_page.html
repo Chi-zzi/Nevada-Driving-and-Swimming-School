@@ -1,0 +1,218 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <!-- Navigation Menu -->
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}" class="active">Home</a></li>
+
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+
+            
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}">Terms/Policy</a></li>
+        </ul>
+        
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-slider">
+        {% for image in hero_images %}
+            <div class="slide" style="background-image: url('{% static image %}');">
+                <div class="overlay"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title"><span>N</span>EVADA&nbsp;<span>D</span>RIVING&nbsp;<span>S</span>CHOOL &nbsp; / &nbsp; <span>S</span>wim &nbsp; <span>H</span>ub</h1>
+                    <h2 class="hero-subtitle">We make driving and swimming easy and safe for you and other people.</h2>
+                    <a href="{% url 'register' %}" class="cta-button">SignUp Now</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="prev" onclick="prevSlide()">&#10094;</button>
+    <button class="next" onclick="nextSlide()">&#10095;</button>
+</section>
+
+
+
+<!-- About Section -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-content">
+            <!-- Left Side: Company Image -->
+            <div class="about-image">
+                <img src="{% static 'images/about-section/company-image.jpg' %}" alt="Company Image">
+            </div>
+
+            <!-- Right Side: Description -->
+            <div class="about-text">
+                <h2>About Our Company</h2>
+                <p class="short-text">
+                    Welcome to <strong>NEVADA DRIVING SCHOOL / SWIM HUB</strong>! We provide professional driving and swimming training for all eligible applicants. 
+                    Whether you're learning to drive safely on the road or swim confidently in the pool, our 
+                    experienced instructors are here to guide you every step of the way. Sign up now!
+                </p>  
+                    
+                    <div class="hidden-text">
+                        <p>Our training program includes:</p>
+                            <ul>
+                                <li>Theory Lessons</li>
+                                <li>Video Training</li>
+                                <li>Road Driving Practice</li>
+                            </ul>
+                        <p>Our office is open from <strong>8:00 AM to 6:00 PM</strong>, and our dedicated team is always ready to guide you every step of the way.</p>
+                    </div>
+                
+
+                <!-- Features with Progress Bar -->
+                <div class="features">
+                    <div class="feature">
+                        <p>Experienced Instructors</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 90%;">90%</div>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <p>Student Success Rate</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%;">85%</div>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <p>Customer Satisfaction</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 95%;">95%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="buttons">
+                    <button class="read-more-btn">Read More...</button>
+                    <a href="{% url 'register' %}" class="enroll-btn">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Courses Section -->
+<section class="course-section">
+    <h3 class="course-header">Our Driving Courses:</h3>
+    <div class="course-container">
+        {% for course in driving_courses %}
+        <div class="course-card">
+            <div class="image-container">
+                <img src="{{ course.image.url }}" alt="{{ course.name }}">
+                <a href="{% url 'courses' %}#{{ course.id }}" class="read-more">KNOW MORE</a>
+            </div>
+            <div class="course-details">
+                <h3>{{ course.name }}</h3>
+                <p class="type">{{ course.type }}</p>
+                <p class="duration"><strong>Duration:</strong>{% if course.duration == 1 %} {{ course.duration }} week {% else %} {{ course.duration }} weeks {% endif %}</p>
+                <p class="course-price"> &#8358; {{ course.price|floatformat:0 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- Swimming Courses Section -->
+<section class="swimming-course-section">
+    <h3 class="swimming-course-header">Our Swimming Courses:</h3>
+    <div class="swimming-course-container">
+        {% for course in swimming_courses %}
+        <div class="swimming-course-card">
+            <div class="swimming-image-container">
+                <img src="{{ course.image.url }}" alt="{{ course.name }}">
+                <a href="{% url 'swimming-courses' %}#{{ course.id }}" class="read-more">KNOW MORE</a>
+            </div>
+            <div class="swimming-course-details">
+                <h3>{{ course.name }}</h3>
+                <p class="duration"><strong>Duration:</strong>{% if course.duration == 1 %} {{ course.duration }} week {% else %} {{ course.duration }} weeks {% endif %}</p>
+                <p class="course-price"> &#8358; {{ course.price|floatformat:0 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+<!-- Consultation and AppointmentSection -->
+<section class="consultation-container">
+    <h3 class="consultation-header">Book an Appointment</h3>
+    
+    <form method="POST" action="" id="appointment-form" method="POST" onsubmit="handleappointmentFormSubmit(event)" class="appointment-form">
+        {% csrf_token %}
+        
+        <div class="input-group">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+        </div>
+        
+        <div class="input-group">
+            <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+            <input type="text" id="programme" name="programme" placeholder="Programme" required>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="state" name="state" placeholder="State of Residence" required>
+            <input type="text" id="country" name="country" placeholder="Country" required>
+        </div>
+
+        <textarea id="message" name="message" placeholder="Message" rows="4" required></textarea>
+
+        <button type="submit" class="appointment-btn">
+            <span class="appoint-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+            <span class="appoint-button-text">Submit</span>
+        </button>
+    </form>
+</section>
+
+
+<script>
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
+</script>
+
+{% endblock %}

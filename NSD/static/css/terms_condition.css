@@ -1,0 +1,211 @@
+/* Terms Section */
+.terms-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #f4f6f9;
+    min-height: 100vh;
+    margin-top: 50px;
+    box-sizing: border-box;
+}
+
+.terms-container {
+    background-color: #ffffff;
+    max-width: 800px;
+    width: 100%;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow-y: auto;
+    max-height: 90vh;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.terms-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #222;
+}
+
+.policy-block {
+    margin-bottom: 40px;
+}
+
+.policy-block h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #0a4a75;
+}
+
+.policy-block ul, .policy-block ol {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.policy-block ul li, .policy-block ol li {
+    margin-bottom: 10px;
+}
+
+.note {
+    background-color: #fffbe6;
+    padding: 10px 15px;
+    border-left: 4px solid #f0a105;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.signed {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: right;
+    font-style: italic;
+    color: #0a4a75;
+}
+
+
+
+
+
+
+
+/* ========== 1230px - 1450px ========== */
+@media (max-width: 1450px) and (min-width: 1230px) {
+    .terms-container {
+        max-width: 900px;
+        padding: 35px 25px;
+    }
+
+    .terms-title {
+        font-size: 26px;
+    }
+
+    .policy-block h3 {
+        font-size: 19px;
+    }
+}
+
+/* ========== 1025px - 1230px ========== */
+@media (max-width: 1230px) and (min-width: 1025px) {
+    .terms-container {
+        max-width: 850px;
+        padding: 35px 25px;
+    }
+
+    .terms-title {
+        font-size: 25px;
+    }
+
+    .policy-block h3 {
+        font-size: 18px;
+    }
+}
+
+/* ========== 850px - 1024px ========== */
+@media (max-width: 1024px) and (min-width: 850px) {
+    .terms-container {
+        max-width: 90%;
+        padding: 30px 20px;
+    }
+
+    .terms-title {
+        font-size: 24px;
+    }
+
+    .policy-block h3 {
+        font-size: 18px;
+    }
+}
+
+/* ========== 601px - 1024px ========== */
+@media (max-width: 1024px) and (min-width: 601px) {
+    .terms-container {
+        max-width: 95%;
+        padding: 30px 18px;
+        font-size: 15px;
+    }
+
+    .terms-title {
+        font-size: 23px;
+    }
+
+    .policy-block h3 {
+        font-size: 17px;
+    }
+}
+
+/* ========== 600px and below ========== */
+@media (max-width: 600px) {
+    .terms-container {
+        padding: 25px 15px;
+        max-height: none;
+    }
+
+    .terms-title {
+        font-size: 22px;
+    }
+
+    .policy-block h3 {
+        font-size: 16px;
+    }
+
+    .note {
+        font-size: 14px;
+    }
+
+    .signed {
+        font-size: 14px;
+    }
+}
+
+/* ========== 400px and below ========== */
+@media (max-width: 400px) {
+    .terms-container {
+        padding: 20px 12px;
+    }
+
+    .terms-title {
+        font-size: 20px;
+    }
+
+    .policy-block h3 {
+        font-size: 15px;
+    }
+
+    .policy-block ul li,
+    .policy-block ol li {
+        font-size: 14px;
+    }
+
+    .note, .signed {
+        font-size: 13px;
+    }
+}
+
+/* ========== 340px and below ========== */
+@media (max-width: 340px) {
+    .terms-container {
+        padding: 15px 10px;
+    }
+
+    .terms-title {
+        font-size: 19px;
+    }
+
+    .policy-block h3 {
+        font-size: 14px;
+    }
+
+    .policy-block ul li,
+    .policy-block ol li {
+        font-size: 13px;
+    }
+
+    .note,
+    .signed {
+        font-size: 12.5px;
+    }
+}

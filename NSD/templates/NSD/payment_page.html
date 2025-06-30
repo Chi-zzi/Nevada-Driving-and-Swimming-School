@@ -1,0 +1,119 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Driving Payment Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <!-- Navigation Menu -->
+         <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}">Terms/Policy</a></li>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Header Section -->
+<div class="payment-page-header">
+    <h1>Payment</h1>
+    <div class="header-links">
+        <a href="{% url 'home' %}">Home</a> /
+        <a href="{% url 'payment' %}" class="active">Payments</a> /
+        <a href="{% url 'register' %}">Registration</a>
+    </div>
+</div>
+
+<div class="page-wrapper">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="payment-error-message {{ message.tags }}">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="payment-container" id="payment-container">
+        <div action="" method="POST" id="payment-form">
+            {% csrf_token %}
+            <div class="input-pair">
+                <input type="text" class="readonly-input" id="names" name="names" value="{{ surname }} {{ firstname }}" readonly>
+                <input type="text" class="readonly-input" id="email" name="email" value="{{ email }}" readonly>
+            </div>
+            <div class="input-pair">
+                <input type="text" class="readonly-input" id="phone" name="phone" value="{{ phone }}" readonly>
+                <input type="text" class="readonly-input" id="address" name="address" value="{{ address }}" readonly>
+            </div>
+            <div class="input-pair">
+                <input type="text" class="readonly-input" name="location" id="location_detail" value="{{ city }}, {{ country }}" readonly>
+                <input type="text" class="readonly-input" id="course_type" name="course_type" value="{{ course_type }}" readonly>
+            </div>
+            <div class="input-pair">
+                <input type="text" class="readonly-input" id="duration" name="duration" value="{{ duration }} week(s)" readonly>
+                <input type="text" class="readonly-input instruct-price" id="price" name="price" value="Price: NGN {{ course_price|floatformat:0 }}" readonly>
+            </div>
+            <!-- naira sign &#8358; -->
+
+            <!-- <button type="button" class="payment-btn">PAY</button> -->
+            <button type="button" class="payment-btn" onclick="togglePaymentMethods(event)">
+                <span class="payment-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+                <span class="payment-button-text">PAY</span>
+            </button>
+
+    
+            <div class="payment-methods" id="payment-methods">
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
+
+    // document.getElementById('flutterwave-button').addEventListener('click', function() {
+    //     document.getElementById('flutterwave-payment-form').submit();
+    // });
+
+</script>
+
+
+{% endblock %}

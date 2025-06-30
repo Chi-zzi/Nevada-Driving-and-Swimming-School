@@ -1,0 +1,101 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Driving Course Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn active">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+            
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}">Terms/Policy</a></li>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Header Section -->
+<div class="course-page-header">
+    <h1>Courses</h1>
+    <div class="header-links">
+        <a href="{% url 'home' %}">Home</a> /
+        <a href="{% url 'courses' %}" class="active">Course</a> /
+        <a href="{% url 'register' %}">Registration</a>
+    </div>
+</div>
+
+<!-- Course Details Section -->
+<section class="course-details-container">
+    <h3 class="notice">Note: Our programmes are organised to align with the Road Safety Standard Home & Abroad! We wish u a happy & successful training.</h3>
+    <h2 class="course-page-title">Our Driving Courses</h2>
+    
+    {% for course in driving_courses %}
+    <div id="{{ course.id }}" class="course-details-card">
+        <p class="course-price">&#8358; {{ course.price|floatformat:0 }}</p> <!-- <strong>Price:</strong> -->
+        <h3 class="course-name">{{ course.name }}</h3>
+        <p class="course-level">{{ course.type }}</p>
+        <p class="course-about"><strong>Description:</strong></p>
+        <ul class="course-description-list">
+            {% for line in course.description.splitlines %}
+            <li>{{ line }}</li>
+            {% endfor %}
+        </ul>
+
+        <p class="course-duration"><strong>Duration:</strong>
+            &nbsp;<i class="bi bi-clock-history"></i>{% if course.duration == 1 %} {{ course.duration }} week {% else %} {{ course.duration }} weeks {% endif %}
+        </p>
+        <p class="course-duration"><strong>Open Hours:</strong>&nbsp;8am - 6pm</p>
+        <!-- <p class="course-duration"><strong>Office Closes:</strong>&nbsp;6pm</p> -->
+
+        <!-- Image with hover transition -->
+        <div class="course-image-container">
+            <img src="{{ course.image.url }}" alt="{{ course.name }}" class="course-image">
+            <!-- <a href="{% url 'register' %}" class="course-enroll-btn">ENROLL</a> -->
+            <a href="{% url 'enroll_course' course.id %}" class="course-enroll-btn">ENROLL</a>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+
+
+
+<script>
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
+</script>
+
+{% endblock %}

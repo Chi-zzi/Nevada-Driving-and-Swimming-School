@@ -1,0 +1,46 @@
+[
+    {
+        "name": "One Month Programme",
+        "description": ["Total lessons: 20", 
+                        "Practicals: 16",
+                        "Theory: 4"
+                        ],
+        "duration": 4,
+        "type": "For a Beginner without experience",
+        "price": 120000,
+        "image": "b-without-Exp.jpg"
+    },
+    {
+        "name": "Three Weeks Programme",
+        "description": ["Total lessons: 15", 
+                        "Practicals: 12",
+                        "Theory: 3"
+                        ],
+        "duration": 3,
+        "type": "For a Beginner with little experience",
+        "price": 100000,
+        "image": "b-with-Exp.jpg"
+    },
+    {
+        "name": "Two Weeks Programme",
+        "description": ["Total lessons: 10", 
+                        "Practicals: 8",
+                        "Theory: 2"
+                        ],
+        "duration": 2,
+        "type": "For a Beginner with much experience",
+        "price": 90000,
+        "image": "b-with-much-Exp.jpg"
+    },
+    {
+        "name": "One Week Programme",
+        "description": ["Total lessons: 5", 
+                        "Practicals: 4",
+                        "Theory: 1"
+                        ],
+        "duration": 1,
+        "type": "For a Refresher",
+        "price": 70000,
+        "image": "refresher.jpg"
+    }
+]

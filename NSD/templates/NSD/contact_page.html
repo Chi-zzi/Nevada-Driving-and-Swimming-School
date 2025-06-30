@@ -1,0 +1,145 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Contact-Us Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+            
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}" class="active">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}">Terms/Policy</a></li>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Header Section -->
+<div class="contact-page-header">
+    <h1>Contact Us</h1>
+    <div class="header-links">
+        <a href="{% url 'home' %}">Home</a> /
+        <a href="{% url 'contact' %}" class="active">Contact Us</a> /
+        <a href="{% url 'register' %}">Registration</a>
+    </div>
+</div>
+
+
+<!-- Contact Details Section -->
+<section class="contact-page-details">
+    <div class="contact-pair">
+        <div class="contact-item">
+            <i class="bi bi-geo-alt-fill"></i><span>Location:</span> Bliss Mall, Plot 5, Chris Madueke, Lekki phase 1
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-whatsapp"></i><span>WhatsApp:</span> +234 7032382449
+        </div>
+    </div>
+
+    <div class="contact-pair">
+        <div class="contact-item">
+            <i class="bi bi-telephone-fill"></i><span>Phone Line 1:</span> +234 7032382449
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-telephone-fill"></i><span>Phone Line 2:</span> +234 8026781281
+        </div>
+    </div>
+
+    <div class="contact-pair">
+        <div class="contact-item">
+            <i class="bi bi-instagram"></i><span>Instagram:</span> 
+            <a href="https://www.instagram.com/nevada_drivingschool?igsh=MTgybWIxYWc2amU5YQ==" target="_blank">
+                @Nevada_Driving_School
+            </a>
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-envelope-fill"></i><span>Email:</span> nevadadrivingsch2021@gmail.com
+        </div>
+    </div>
+
+    <div class="contact-pair">
+        <div class="contact-item">
+            <i class="bi bi-facebook"></i><span>Facebook:</span> facebook.com/NevadaDrivingSchool
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-globe"></i><span>Website:</span> www.nevadadrivingschool.com
+        </div>
+    </div>
+
+    <div class="contact-pair">
+        <div class="contact-item">
+            <i class="bi bi-twitter"></i><span>Twitter:</span> @Nevada_Driving_School
+        </div>
+        <div class="contact-item">
+            <i class="bi bi-clock-history"></i><span>Open Hours:</span> 8am - 6pm
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="contact-page-form">
+    <h2>Send a Message</h2>
+    <form method="POST" onsubmit="handlecontactusFormSubmit(event)" id="contact-us-form" method="POST" action="">
+        {% csrf_token %}
+        <div class="contact-form-group-container">
+            <div class="contact-form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="contact-form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="contact-form-group full-width">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="contact-submit-btn">
+            <span class="contact-submit-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+            <span class="contact-button-text">SUBMIT</span>
+        </button>
+    </form>
+</section>
+
+
+<script>
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
+</script>
+
+{% endblock %}

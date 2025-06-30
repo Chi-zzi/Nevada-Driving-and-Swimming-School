@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/course.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/payment.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/swimming_registration.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/swimming_payment.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/terms_condition.css' %}">
+    
+    <title>{% block title %} General Base File {% endblock %}</title>
+</head>
+<body>
+    
+    {% block content %}
+    {% endblock %}
+
+
+    <footer id="footer">
+        {% csrf_token %}
+        <div class="footer-content">
+            <h3>Care to Contact Us</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Bliss Mall, Plot 5, Chris Madueke, Lekki phase 1</p>
+            <p><i class="fas fa-phone"></i> +234 7032382449</p>
+            <p><i class="fas fa-envelope"></i> nevadadrivingsch2021@gmail.com</p>
+        </div>
+
+        <div class="footer-content">
+            <h3>Links</h3>
+            <a href="{% url 'home' %}"><i class="fas fa-chevron-right"></i> Home</a>
+            <a href="{% url 'register' %}"><i class="fas fa-chevron-right"></i> Driving Registration</a>
+            <a href="{% url 'swimming-register' %}"><i class="fas fa-chevron-right"></i> Swimming Registration</a>
+            <a href="{% url 'register' %}"><i class="fas fa-chevron-right"></i> Payment</a>
+            <a href="{% url 'register' %}"><i class="fas fa-chevron-right"></i> SignUp</a>
+            <a href="{% url 'term-condition' %}"><i class="fas fa-chevron-right"></i> Terms & Condition</a>
+        </div>
+        <div class="footer-content">
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}"><i class="fas fa-chevron-right"></i> Home</a>
+            <a href="{% url 'courses' %}"><i class="fas fa-chevron-right"></i> Driving Courses</a>
+            <a href="{% url 'swimming-courses' %}"><i class="fas fa-chevron-right"></i> Swimming Courses</a>
+            <a href="{% url 'contact' %}"><i class="fas fa-chevron-right"></i> Contact Us</a>
+        </div>
+        <div class="footer-content">
+            <h3>Follow Us On</h3>
+            <div class="social-icons">
+                <a href="https://wa.me/2347032382449/" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/nevada_drivingschool?igsh=MTgybWIxYWc2amU5YQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/?authuser=0" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/explore" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.linkedin.com/login" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="footer-content newsletter">
+            <h3>Newsletter</h3>
+            <input type="email" name="email" placeholder="Your Email Address">
+            <button type="submit">Sign Up</button>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2025 Nevada Driving School / Swim Hub. All rights reserved</p>
+            <span class="dot">&bull;</span>
+            <p class="Desc">We make driving easy, interesting, and safe for you and other road users.</p>
+        </div>
+
+    </footer>
+
+    <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/course.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/contact.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/registration.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/payment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/swimming_registration.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/swimming_payment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/terms_condition.js' %}"></script>
+</body>
+</html>

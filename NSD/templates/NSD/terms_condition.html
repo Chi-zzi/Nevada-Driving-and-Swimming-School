@@ -1,0 +1,141 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Terms & Policy Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+            
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}" class="active">Terms/Policy</a></li>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Terms and Conditions Section -->
+<section class="terms-section">
+    <div class="terms-container">
+        <h2 class="terms-title">Terms and Policy</h2>
+
+        <!-- Driving Policy -->
+        <div class="policy-block">
+            <h3>NEVADA DRIVING SCHOOL/SWIM HUB POLICY</h3>
+            <p>Welcome to <strong>NEVADA DRIVING SCHOOL / SWIM HUB</strong>! We provide professional driving and swimming training for all eligible applicants. Whether you're learning to drive safely on the road or swim confidently in the pool, our experienced instructors are here to guide you every step of the way.</p>
+            
+            <p>Our training program includes:</p>
+            <ul>
+                <li>Theory Lessons</li>
+                <li>Video Training</li>
+                <li>Road Driving Practice</li>
+            </ul>
+            
+            <p>Our office is open from <strong>8:00 AM to 6:00 PM</strong>, and our dedicated team is always ready to guide you every step of the way.</p>
+            <p class="note">Note: Our Driving programmes are organised to align with the Road Safety Standard Home & Abroad. We wish you a happy and successful training!</p>
+        </div>
+
+        <!-- Swim Policy -->
+        <div class="policy-block">
+            <h3>NEVADA SWIM HUB - SWIMMING RULES</h3>
+            <p>Welcome to <strong>Nevada Swim HUB</strong>! We're excited to have you here. To keep everyone safe and make sure you have the best time possible, here are a few important things to keep in mind when you’re in or around the pool.</p>
+
+            <ol>
+                <li><strong>Be Cool, Be Kind</strong>
+                    <ul>
+                        <li>Listen to your instructors and lifeguards — they're here to help you stay safe and have fun.</li>
+                        <li>Be respectful to others in the pool. No pushing, splashing, or rough play.</li>
+                        <li>Stay where you're supposed to be — no sneaking into off-limits areas.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Stay Clean and Ready</strong>
+                    <ul>
+                        <li>Take a quick shower before jumping in — it helps keep the water clean for everyone.</li>
+                        <li>Wear proper swimwear. No jeans, T-shirts, or regular clothes in the pool.</li>
+                        <li>If you’re sick or have open wounds, please wait until you’re healthy again.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Safety First, Always</strong>
+                    <ul>
+                        <li>Never swim alone. Make sure there’s an instructor or lifeguard around.</li>
+                        <li>No running on the pool deck — it's slippery.</li>
+                        <li>Diving? Only in deep water and only if your instructor says it's okay.</li>
+                        <li>Know the signals. One whistle = stop and look. Multiple = clear the pool.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Bring the Right Stuff</strong>
+                    <ul>
+                        <li>Water bottles are great — stay hydrated! But no food, drinks, or gum in the pool area.</li>
+                        <li>Only use gear approved by your coach or instructor.</li>
+                        <li>Lock your belongings — we’re not responsible for lost items.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Be on Time, Join the Fun</strong>
+                    <ul>
+                        <li>Arrive early so you’re ready when class starts.</li>
+                        <li>Let us know if you’re going to miss class. We understand!</li>
+                    </ul>
+                </li>
+
+                <li><strong>For Our Amazing Parents</strong>
+                    <ul>
+                        <li>Watch from the viewing area — it helps the kids focus.</li>
+                        <li>Keep an eye on children not in class.</li>
+                        <li>If you have questions, ask at the front desk or message us.</li>
+                    </ul>
+                </li>
+
+                <li><strong>Let’s Keep It Positive</strong>
+                    <ul>
+                        <li>We want everyone to feel safe, encouraged, and supported.</li>
+                        <li>If there's ever a problem, talk to us — we’re here to help.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <p>We wish you a happy swimming experience! Thanks for being part of the Nevada Swim Hub family. Let’s dive in and make a splash — safely, confidently, and with a smile!</p>
+            <p class="signed">Signed by Management</p>
+        </div>
+    </div>
+</section>
+
+
+
+
+{% endblock %}

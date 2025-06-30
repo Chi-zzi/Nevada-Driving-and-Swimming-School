@@ -1,0 +1,26 @@
+[
+    {
+        "course_id": "price_1REyXrGaVbH1c6ybs2Xpo4nL",
+        "name": "One Month Programme",
+        "type": "For a Beginner without experience",
+        "price": "120000"
+    },
+    {
+        "course_id": "price_1REyW6GaVbH1c6ybsWvk2gmp",
+        "name": "Three Weeks Programme",
+        "type": "For a Beginner with little experience",
+        "price": "100000"
+    },
+    {
+        "course_id": "price_1REyNyGaVbH1c6ybStHhUWGD",
+        "name": "Two Weeks Programme",
+        "type": "For a Beginner with much experience",
+        "price": "90000"
+    },
+    {
+        "course_id": "price_1REyKQGaVbH1c6yb3ptayKrY",
+        "name": "One Week Programme",
+        "type": "For a Refresher",
+        "price": "70000"
+    }
+]

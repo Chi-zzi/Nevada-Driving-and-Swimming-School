@@ -1,0 +1,264 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Swimming Registration Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+            
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn active">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}">Terms/Policy</a></li>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Header Section -->
+<div class="swim-register-page-header">
+    <h1>Swimming Registration</h1>
+    <div class="swim-header-links">
+        <a href="{% url 'home' %}">Home</a> /
+        <a href="{% url 'swimming-register' %}" class="active">SignUp</a>
+    </div>
+</div>
+
+ 
+
+<!-- Signup Form -->
+<div class="swim-register-container">
+    <h3 class="swim-register-notice">Note: Please kindly fill this form in BLOCK letters.</h3>
+
+    <form action="{% url 'swimming-register' %}" id="swim-registration-form" method="POST" onsubmit="handleSwimmingRegistrationFormSubmit(event)" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Error Messages -->
+        {% if error_messages %}
+        <div class="swim-register-error-container" id="swim-register-error-container">
+            <ul class="swim-register-error-list">
+                {% for error in error_messages %}
+                <li class="swim-register-error-item">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+
+        <!-- Full Name & Email -->
+        <div class="swim-register-form-group">
+            <div class="swim-register-input-box">
+                <label for="surname">Surname :</label>
+                <input type="text" id="surname" name="surname" value="{{ form_data.surname|default:'' }}" required>
+            </div>
+            <div class="swim-register-input-box">
+                <label for="firstname">First Name :</label>
+                <input type="text" id="firstname" name="firstname" value="{{ form_data.firstname|default:'' }}" required>
+            </div>
+        </div>
+
+        <!-- Other Names and Mother Maiden Name -->
+        <div class="swim-register-form-group">
+            <div class="swim-register-input-box">
+                <label for="others">Other Names :</label>
+                <input type="text" id="others" name="others" value="{{ form_data.others|default:'' }}" required>
+            </div>
+
+            <div class="swim-register-input-box dob">
+                <label for="dob">Date of Birth :</label> <br>
+                <input type="date" id="client_dob" value="{{ form_data.dob|default:'' }}" name="dob" required>
+            </div>
+        </div>
+
+        <!-- Gender and Date Of Birth -->
+        <div class="swim-register-form-group">
+            <div class="swim-register-input-box">
+                <label for="phone">Next of Kin Phone Number. :</label>
+                <div class="swim-register-phone-input">
+                    <div class="swim-register-custom-dropdown">
+                        <div class="swim-register-dropdown-selected">
+                            <img id="register-selected-flag" src="{% if form_data.country_code %}{% static form_data.flag %}{% else %}{% static country_codes.0.flag %}{% endif %}" alt="Flag">
+                            <span id="register-selected-code">{% if form_data.country_code %}{{ form_data.country_code }}{% else %}{{ country_codes.0.code }}{% endif %}</span>
+                            <input type="hidden" name="country_code" id="register-country_code" value="{{ form_data.country_code }}">
+                            <img src="{% static 'images/instructor-signup-images/arrow.jpg' %}" class="swim-register-dropdown-arrow" alt="Dropdown">
+                        </div>
+                        <ul class="swim-register-dropdown-list">
+                            {% for country in country_codes %}
+                                <li class="swim-register-dropdown-item" data-code="{{ country.code }}" data-flag="{% static country.flag %}">
+                                    <img src="{% static country.flag %}" alt="Flag">
+                                    <span>{{ country.code }}</span>
+                                    <span class="country-name">{{ country.name }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter 10 digits" value="{{ form_data.phone|default:'' }}" required>
+                </div>
+            </div>
+
+            <div class="swim-register-input-box">
+                <label for="applicant">Applicant Phone Number :</label>
+                <div class="swim-applicant-register-phone-input">
+                    <div class="swim-applicant-register-custom-dropdown">
+                        <div class="swim-applicant-register-dropdown-selected">
+                            <img id="applicant-register-selected-flag" src="{% if form_data.applicant_country_code %}{% static form_data.applicant_flag %}{% else %}{% static country_codes.0.flag %}{% endif %}" alt="Flag">
+                            <span id="applicant-register-selected-code">{% if form_data.applicant_country_code %}{{ form_data.applicant_country_code }}{% else %}{{ country_codes.0.code }}{% endif %}</span>
+                            <input type="hidden" name="applicant_country_code" id="applicant-register-country_code" value="{{ form_data.applicant_country_code }}">
+                            <img src="{% static 'images/instructor-signup-images/arrow.jpg' %}" class="swim-applicant-register-dropdown-arrow" alt="Dropdown">
+                        </div>
+                        <ul class="swim-applicant-register-dropdown-list">
+                            {% for country in country_codes %}
+                                <li class="swim-applicant-register-dropdown-item" data-code="{{ country.code }}" data-flag="{% static country.flag %}">
+                                    <img src="{% static country.flag %}" alt="Flag">
+                                    <span>{{ country.code }}</span>
+                                    <span class="applicant-country-name">{{ country.name }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <input type="tel" id="applicant_phone" name="applicant_phone" placeholder="Enter 10 digits" value="{{ form_data.applicant_phone|default:'' }}" required>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Next of Kin Phone Number and Applicant Phone number -->
+        <div class="swim-register-form-group">
+            <div class="swim-register-input-box sex">
+                <label for="sex">Gender :</label> <br>
+                <select id="sex" name="sex" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Male" {% if form_data.sex == "Male" %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if form_data.sex == "Female" %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+
+            <div class="swim-register-input-box">
+                <label for="health">Health Status :</label> <br>
+                <select id="health" name="health" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Excellent" {% if form_data.health == "Excellent" %}selected{% endif %}>Excellent</option>
+                    <option value="Very Good" {% if form_data.health == "Very Good" %}selected{% endif %}>Very Good</option>
+                    <option value="Good" {% if form_data.health == "Good" %}selected{% endif %}>Good</option>
+                    <option value="Fair" {% if form_data.health == "Fair" %}selected{% endif %}>Fair</option>
+                    <option value="Poor" {% if form_data.health == "Poor" %}selected{% endif %}>Poor</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Nationality and State of Origin -->
+        <div class="swim-register-form-group">
+            <div class="swim-register-input-box">
+                <label for="glasses">Any Previous Experience :</label>
+                <!-- <input type="text" id="glasses" name="glasses" value="{-{ form_data.glasses|default:'' }-}" required> -->
+                <select id="experience" name="experience" required>
+                    <option value="" disabled selected>Select Option</option>
+                    <option value="Yes" {% if form_data.experience == "Yes" %}selected{% endif %}>Yes</option>
+                    <option value="No" {% if form_data.experience == "No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+
+            <div class="swim-register-input-box">
+                <label for="resident">Address :</label>
+                <input type="text" id="resident" name="resident" value="{{ form_data.resident|default:'' }}" required>
+            </div>
+        </div>
+
+
+        <!-- Programme & Duration -->
+        <div class="swim-register-form-group">
+            <div class="swim-register-input-box register-account">
+                <label for="course_type">Programme :</label>
+                <!-- <input type="text" id="account_name" name="account_name" value="{{ form_data.account_name|default:'' }}" placeholder="Enter " required> -->
+                <select id="course_type" name="course_type" onchange="fetchSwimmingDuration()" required>
+                    <option value="" disabled selected>Select Programme</option>
+                    {% for each_course in courses %}
+                        <option value="{{ each_course }}" {% if form_data.course_type == each_course %}selected{% endif %}>{{ each_course }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="swim-register-input-box">
+                <label for="duration">Duration of Training (weeks) :</label>
+                <input type="text" id="duration" name="duration" value="{{ form_data.duration|default:'' }}" readonly>
+            </div>
+        </div>
+
+
+        <!-- Terms & Conditions -->
+        <div class="swim-register-terms-container">
+            <p class="swim-register-terms-text">
+                By signing up, you agree to our <strong><a href="{% url 'term-condition' %}" target="_blank">Terms & Conditions</a></strong>
+            </p>
+            <div class="swim-register-checkbox">
+                <input type="checkbox" id="terms" name="terms" {% if form_data.terms_accepted %}checked{% endif %} required>
+                <label for="terms">I Agree</label>
+            </div>
+        </div>
+
+        <!-- File Upload for Profile Picture -->
+        <div class="swim-register-form-group uploads">
+            <label for="profile_picture">Upload Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        </div>
+
+        
+
+        <!-- Submit Button -->
+        <button type="submit" class="swim-register-btn">
+            <span class="swim-register-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+            <span class="swim-register-button-text">Register</span>
+        </button>
+
+        <!-- <p class="signin-text">
+            Already have an account? <a href="{-% url 'login' %-}">SignIn</a>
+        </p> -->
+    </form>
+</div>
+
+
+
+
+
+
+<script>
+    // var formData = JSON.parse('{{ form_data|safe }}');
+    // console.log(formData);
+
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
+</script>
+
+{% endblock %}

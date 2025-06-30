@@ -1,0 +1,368 @@
+{% extends 'NSD/base.html' %}
+
+{% load static %}
+
+{% block title %} Driving Registration Page {% endblock %}
+
+{% block content %}
+
+<nav class="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="logo"> <span>N</span>evada &nbsp; <span> D</span>riving &nbsp; <span> S</span>chool &nbsp; / &nbsp; <span> S</span>wim &nbsp; <span> H</span>ub
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+            <li class="course-navbar-dropdown">
+                <a href="javascript:void(0)" class="course-navbar-dropbtn">
+                    Courses <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="course-navbar-dropdown-content">
+                    <li><a href="{% url 'courses' %}">Driving Courses</a></li>
+                    <li><a href="{% url 'swimming-courses' %}">Swimming Courses</a></li>
+                </ul>
+            </li>
+            
+            <li class="navbar-dropdown">
+                <a href="javascript:void(0)" class="navbar-dropbtn active">
+                    Registration <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="navbar-dropdown-content">
+                    <li><a href="{% url 'register' %}">Driving</a></li>
+                    <li><a href="{% url 'swimming-register' %}">Swimming</a></li>
+                </ul>
+            </li>
+
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'term-condition' %}">Terms/Policy</a></li>
+        </ul>
+
+        <!-- Mobile Menu Icon -->
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="bi bi-list"></i></div>
+    </div>
+</nav>
+
+
+<!-- Header Section -->
+<div class="register-page-header">
+    <h1>Driving Registration</h1>
+    <div class="header-links">
+        <a href="{% url 'home' %}">Home</a> /
+        <a href="{% url 'register' %}" class="active">SignUp</a>
+    </div>
+</div>
+
+ 
+
+<!-- Signup Form -->
+<div class="register-container">
+    <h3 class="register-notice">Note: Please kindly fill this form in BLOCK letters.</h3>
+
+    <form action="{% url 'register' %}" id="registration-form" method="POST" onsubmit="handleRegistrationFormSubmit(event)" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Error Messages -->
+        {% if error_messages %}
+        <div class="register-error-container" id="register-error-container">
+            <ul class="register-error-list">
+                {% for error in error_messages %}
+                <li class="register-error-item">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+
+        <!-- Full Name & Email -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="surname">Surname :</label>
+                <input type="text" id="surname" name="surname" value="{{ form_data.surname|default:'' }}" required>
+            </div>
+            <div class="register-input-box">
+                <label for="firstname">First Name :</label>
+                <input type="text" id="firstname" name="firstname" value="{{ form_data.firstname|default:'' }}" required>
+            </div>
+        </div>
+
+        <!-- Other Names and Mother Maiden Name -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="others">Other Names :</label>
+                <input type="text" id="others" name="others" value="{{ form_data.others|default:'' }}" required>
+            </div>
+            <div class="register-input-box">
+                <label for="maiden">Mother Maiden Name :</label>
+                <input type="text" id="maiden" name="maiden" value="{{ form_data.maiden|default:'' }}" required>
+            </div>
+        </div>
+
+        <!-- Gender and Date Of Birth -->
+        <div class="register-form-group">
+            <div class="register-input-box sex">
+                <label for="sex">Gender :</label> <br>
+                <select id="sex" name="sex" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Male" {% if form_data.sex == "Male" %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if form_data.sex == "Female" %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+            <div class="register-input-box dob">
+                <label for="dob">Date of Birth :</label> <br>
+                <input type="date" id="client_dob" value="{{ form_data.dob|default:'' }}" name="dob" required>
+            </div>
+        </div>
+
+        <!-- Blood Group and Facial Mark -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="blood">Blood Group :</label>
+                <!-- <input type="text" id="blood" name="blood" value="{-{ form_data.blood|default:'' }-}" required> -->
+                <select id="blood" name="blood" required>
+                    <option value="" disabled selected>Select Your Blood Group</option>
+                    <option value="A+" {% if form_data.blood == "A+" %}selected{% endif %}>A+</option>
+                    <option value="A-" {% if form_data.blood == "A-" %}selected{% endif %}>A-</option>
+                    <option value="B+" {% if form_data.blood == "B+" %}selected{% endif %}>B+</option>
+                    <option value="B-" {% if form_data.blood == "B-" %}selected{% endif %}>B-</option>
+                    <option value="AB+" {% if form_data.blood == "AB+" %}selected{% endif %}>AB+</option>
+                    <option value="AB-" {% if form_data.blood == "AB-" %}selected{% endif %}>AB-</option>
+                    <option value="O+" {% if form_data.blood == "O+" %}selected{% endif %}>O+</option>
+                    <option value="O-" {% if form_data.blood == "O-" %}selected{% endif %}>O-</option>
+                </select>
+            </div>
+            <div class="register-input-box">
+                <label for="facial">Facial Mark :</label>
+                <input type="text" id="facial" name="facial" placeholder="Enter 'None' if you don't have any" value="{{ form_data.facial|default:'' }}" required>
+            </div>
+        </div>
+
+        <!-- Glasses and Height in Meters -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="glasses">Glasses :</label>
+                <!-- <input type="text" id="glasses" name="glasses" value="{-{ form_data.glasses|default:'' }-}" required> -->
+                <select id="glasses" name="glasses" required>
+                    <option value="" disabled selected>Select Option</option>
+                    <option value="Yes" {% if form_data.glasses == "Yes" %}selected{% endif %}>Yes</option>
+                    <option value="No" {% if form_data.glasses == "No" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="register-input-box">
+                <label for="height">Height in Meters :</label>
+                <input type="text" id="height" name="height" value="{{ form_data.height|default:'' }}" required>
+            </div>
+        </div>
+
+
+        <!-- Any Form of Disability and National Identity Number (NIN) -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="disability">Any Form of Disability :</label>
+                <input type="text" id="disability" name="disability" placeholder="If yes, State the Disability" value="{{ form_data.disability|default:'' }}" required>
+            </div>
+            <div class="register-input-box">
+                <label for="nin">National Identity Number (NIN) :</label>
+                <input type="text" id="nin" name="nin" placeholder="Enter your 11 digits NIN" value="{{ form_data.nin|default:'' }}" required>
+            </div>
+        </div>
+
+        <!-- Next of Kin Phone Number and Applicant Phone number -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="phone">Next of Kin Phone No. :</label>
+                <div class="register-phone-input">
+                    <div class="register-custom-dropdown">
+                        <div class="register-dropdown-selected">
+                            <img id="register-selected-flag" src="{% if form_data.country_code %}{% static form_data.flag %}{% else %}{% static country_codes.0.flag %}{% endif %}" alt="Flag">
+                            <span id="register-selected-code">{% if form_data.country_code %}{{ form_data.country_code }}{% else %}{{ country_codes.0.code }}{% endif %}</span>
+                            <input type="hidden" name="country_code" id="register-country_code" value="{{ form_data.country_code }}">
+                            <img src="{% static 'images/instructor-signup-images/arrow.jpg' %}" class="register-dropdown-arrow" alt="Dropdown">
+                        </div>
+                        <ul class="register-dropdown-list">
+                            {% for country in country_codes %}
+                                <li class="register-dropdown-item" data-code="{{ country.code }}" data-flag="{% static country.flag %}">
+                                    <img src="{% static country.flag %}" alt="Flag">
+                                    <span>{{ country.code }}</span>
+                                    <span class="country-name">{{ country.name }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter 10 digits" value="{{ form_data.phone|default:'' }}" required>
+                </div>
+            </div>
+            <div class="register-input-box">
+                <label for="applicant">Applicant Phone Number :</label>
+                <div class="applicant-register-phone-input">
+                    <div class="applicant-register-custom-dropdown">
+                        <div class="applicant-register-dropdown-selected">
+                            <img id="applicant-register-selected-flag" src="{% if form_data.applicant_country_code %}{% static form_data.applicant_flag %}{% else %}{% static country_codes.0.flag %}{% endif %}" alt="Flag">
+                            <span id="applicant-register-selected-code">{% if form_data.applicant_country_code %}{{ form_data.applicant_country_code }}{% else %}{{ country_codes.0.code }}{% endif %}</span>
+                            <input type="hidden" name="applicant_country_code" id="applicant-register-country_code" value="{{ form_data.applicant_country_code }}">
+                            <img src="{% static 'images/instructor-signup-images/arrow.jpg' %}" class="applicant-register-dropdown-arrow" alt="Dropdown">
+                        </div>
+                        <ul class="applicant-register-dropdown-list">
+                            {% for country in country_codes %}
+                                <li class="applicant-register-dropdown-item" data-code="{{ country.code }}" data-flag="{% static country.flag %}">
+                                    <img src="{% static country.flag %}" alt="Flag">
+                                    <span>{{ country.code }}</span>
+                                    <span class="applicant-country-name">{{ country.name }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <input type="tel" id="applicant_phone" name="applicant_phone" placeholder="Enter 10 digits" value="{{ form_data.applicant_phone|default:'' }}" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nationality and State of Origin -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="nationality">Nationality :</label>
+                <!-- <input type="text" id="nationality" name="nationality" value="{-{ form_data.nationality|default:'' }-}" required> -->
+                <select id="nationality" name="nationality" required>
+                    <option value="" disabled selected>Select Your Country</option>
+                    <option value="Nigeria" {% if form_data.nationality == "Nigeria" %}selected{% endif %}>Nigeria</option>
+                </select>
+            </div>
+
+            <div class="register-input-box">
+                <label for="stateoforigin">State of Origin :</label>
+                <select id="stateoforigin" onchange="fetchLGAs()" name="stateoforigin" required>
+                    <option value="" disabled selected>Select Your State</option>
+                    {% for state in states %}
+                        <option value="{{ state.id }}" {% if form_data.stateoforigin == state.states %}selected{% endif %}>{{ state }}</option>
+                    {% endfor %}
+                </select>
+                <!-- <input type="text" id="stateoforigin" name="stateoforigin" value="{{ form_data.stateoforigin|default:'' }}" required> -->
+            </div>
+        </div>
+
+        <!-- LGA and Place of Birth -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="lga">LGA of Origin :</label>
+                <select id="lga" name="lga" required>
+                    <option value="" disabled selected>Select</option>
+                </select>
+                <input type="hidden" id="selected-lga" value="{{ form_data.lga|default:'' }}">
+                <!-- <input type="text" id="lga" name="lga" value="{{ form_data.lga|default:'' }}" required> -->
+            </div>
+            <div class="register-input-box">
+                <label for="place">Place of Birth :</label>
+                <input type="text" id="place" name="place" value="{{ form_data.place|default:'' }}" required>
+            </div>
+        </div>
+
+        <!-- Occupation and Marital Status -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="profession">Occupation :</label>
+                <input type="text" id="profession" name="profession" value="{{ form_data.profession|default:'' }}" required>
+            </div>
+            <div class="register-input-box sex">
+                <label for="marital">Marital Status :</label> <br>
+                <select id="marital" name="marital" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="single" {% if form_data.marital == "single" %}selected{% endif %}>Single</option>
+                    <option value="married" {% if form_data.marital == "married" %}selected{% endif %}>Married</option>
+                    <option value="divorced" {% if form_data.marital == "divorced" %}selected{% endif %}>Divorced</option>
+                    <option value="widowed" {% if form_data.marital == "widowed" %}selected{% endif %}>Widowed</option>
+                    <option value="relationship" {% if form_data.marital == "relationship" %}selected{% endif %}>In Relationship</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!-- Duration of Training and Residential Address -->
+        <div class="register-form-group">
+            <div class="register-input-box">
+                <label for="resident">Residential Address :</label>
+                <input type="text" id="resident" name="resident" value="{{ form_data.resident|default:'' }}" required>
+            </div>
+
+            <div class="register-input-box">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" placeholder="Email Address" value="{{ form_data.email|default:'' }}" required>
+            </div>
+        </div>
+
+
+        <!-- Programme & Duration -->
+        <div class="register-form-group">
+            <div class="register-input-box register-account">
+                <label for="course_type">Programme :</label>
+                <!-- <input type="text" id="account_name" name="account_name" value="{{ form_data.account_name|default:'' }}" placeholder="Enter " required> -->
+                <select id="course_type" name="course_type" onchange="fetchDuration()" required>
+                    <option value="" disabled selected>Select Programme</option>
+                    {% for each_course in courses %}
+                        <option value="{{ each_course }}" {% if form_data.course_type == each_course %}selected{% endif %}>{{ each_course }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="register-input-box">
+                <label for="duration">Duration of Training (weeks) :</label>
+                <input type="text" id="duration" name="duration" value="{{ form_data.duration|default:'' }}" readonly>
+            </div>
+        </div>
+
+
+        <!-- Terms & Conditions -->
+        <div class="register-terms-container">
+            <p class="register-terms-text">
+                By signing up, you agree to our <strong><a href="{% url 'term-condition' %}" target="_blank">Terms & Conditions</a></strong>
+            </p>
+            <div class="register-checkbox">
+                <input type="checkbox" id="terms" name="terms" {% if form_data.terms_accepted %}checked{% endif %} required>
+                <label for="terms">I Agree</label>
+            </div>
+        </div>
+
+        <!-- File Upload for Profile Picture -->
+        <div class="register-form-group uploads">
+            <label for="profile_picture">Upload Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        </div>
+
+        <!-- File Upload -->
+        <!-- <div class="register-form-group uploads">
+            <label for="license">Upload License :</label>
+            <input type="file" id="license" name="license" accept=".pdf,.doc,.docx,.ai,.psd" required>
+        </div>
+        <div class="register-form-group uploads">
+            <label for="degree">Upload Degree (Optional) :</label>
+            <input type="file" id="degree" accept=".pdf,.doc,.docx,.ai,.psd" name="degree">
+        </div> -->
+
+        <!-- Submit Button -->
+        <button type="submit" class="register-btn">
+            <span class="register-spinner"><i class="fas fa-spinner fa-spin"></i></span>
+            <span class="register-button-text">Register</span>
+        </button>
+
+        <!-- <p class="signin-text">
+            Already have an account? <a href="{-% url 'login' %-}">SignIn</a>
+        </p> -->
+    </form>
+</div>
+
+
+
+
+
+
+<script>
+    // var formData = JSON.parse('{{ form_data|safe }}');
+    // console.log(formData);
+
+    function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+    }
+</script>
+
+{% endblock %}

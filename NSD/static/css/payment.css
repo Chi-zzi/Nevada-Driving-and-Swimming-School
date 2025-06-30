@@ -1,0 +1,473 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #edf4ec;
+}
+
+
+/* Header Section */
+.payment-page-header {
+    position: relative;
+    background: url("../images/header-image/header-1.jpg") no-repeat center center/cover;
+    text-align: center;
+    padding: 30px 0;
+    color: white;
+    font-size: 22px;
+    margin-top: 80px;
+}
+
+/* Overlay Effect */
+.payment-page-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.733); /* Dark overlay for better readability */
+}
+
+
+/* Header Content (Ensuring it is above the overlay) */
+.payment-page-header h1,
+.payment-page-header .header-links {
+    position: relative;
+    z-index: 1;
+}
+
+/* Centering Navigation Links */
+.payment-page-header .header-links {
+    margin-top: 10px;
+    justify-content: center;
+    color: rgb(208, 206, 206);
+}
+
+/* Navigation Links Styling */
+.payment-page-header .header-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.payment-page-header .header-links a:hover {
+    color: #f0a105;
+    transition: 1s ease;
+}
+
+/* Highlight Active Link */
+.payment-page-header .header-links a.active {
+    text-decoration: underline;
+    color: #f0a105;
+}
+
+
+
+/* Center the entire container on the page */
+.page-wrapper {
+    min-height: 75vh;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    background: #e3e2e2;
+    padding: 20px;
+}
+
+
+.payment-error-message.warning {
+    background-color: #c2aa5a; /* Light green background */
+    color: #edefee; /* Dark green text */
+    border: 1px solid #edefee; /* Slightly darker green border */
+    padding: 6px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.payment-error-message.error {
+    background-color: #ad555d; /* Light green background */
+    color: #edefee; /* Dark green text */
+    border: 1px solid #edefee; /* Slightly darker green border */
+    padding: 6px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+.payment-error-message.success {
+    background-color: #389c50; /* Light green background */
+    color: #edefee; /* Dark green text */
+    border: 1px solid #edefee; /* Slightly darker green border */
+    padding: 6px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+.payment-error-message.info {
+    background-color: #539aa7; /* Light green background */
+    color: #edefee; /* Dark green text */
+    border: 1px solid #edefee; /* Slightly darker green border */
+    padding: 6px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+
+/* Animation for smooth appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Smooth transition and max-height control */
+.payment-container {
+    background: #f6f6f6;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 950px;
+    max-height: 700px;
+    transition: max-height 1.5s ease;
+    overflow: hidden;
+}
+
+/* Expanded state class */
+.payment-container.expanded {
+    max-height: 1000px;
+}
+
+/* Flex row for paired inputs */
+.input-pair {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.readonly-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    font-family: Verdana;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+.instructor-input-box.readonly-input {
+    padding: 5px 7px;
+    background: #e4eae4;
+}
+
+.readonly-input.instruct-price {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.instructor-input-box select{
+    flex: 1;
+    font-size: 16px;
+    padding: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+
+/* Button styling */
+.payment-btn {
+    padding: 10px 20px;
+    background: #f0a105;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    transition: 1.5s ease;
+}
+
+.payment-btn:hover {
+    transition: 1.5s ease;
+    opacity: 0.7;
+    /* background: #0056b3; */
+}
+
+.payment-spinner {
+    display: none; /* Initially hide the spinner */
+    margin-right: 5px; /* Adjust spacing as needed */
+}
+
+.fa-spinner {
+    font-size: 20px; /* Adjust size as needed */
+    color: var(--text-color-widget);
+}
+
+/* Hidden payment methods by default */
+/* .payment-methods {
+    display: none;
+    margin-top: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+} */
+
+/* .payment-methods.active {
+    display: flex;
+} */
+
+.payment-methods {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1.5s ease, max-height 1.5s ease;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/* Shown when active */
+.payment-methods.show {
+    opacity: 1;
+    max-height: 500px;
+}
+
+
+
+.account-details {
+    background: #fff;
+    padding: 20px;
+    border: 2px dashed #f0a105;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    font-family: Verdana, sans-serif;
+}
+
+.account-details h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.account-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.account-details .note {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #a00;
+    font-style: italic;
+}
+
+
+
+
+
+
+/* ========== 1230px - 1450px ========== */
+@media (max-width: 1450px) and (min-width: 1230px) {
+    .payment-container {
+        width: 80%;
+    }
+}
+
+/* ========== 1025px - 1230px ========== */
+@media (max-width: 1230px) and (min-width: 1025px) {
+
+    .payment-page-header {
+        margin-top: 60px;
+    }
+
+    .payment-container {
+        width: 90%;
+        padding: 40px;
+    }
+}
+
+/* ========== 850px - 1024px ========== */
+@media (max-width: 1024px) and (min-width: 850px) {
+    .payment-container {
+        width: 95%;
+        padding: 30px;
+    }
+}
+
+/* ========== 601px - 1024px ========== */
+@media (max-width: 1024px) and (min-width: 601px) {
+    .input-pair {
+        flex-direction: column;
+    }
+
+    .readonly-input {
+        width: 100%;
+    }
+
+    .payment-btn {
+        font-size: 16px;
+    }
+}
+
+/* ========== 600px and below ========== */
+@media (max-width: 600px) {
+
+    .payment-page-header {
+        margin-top: 60px;
+        font-size: 18px;
+    }
+
+    .payment-page-header h1 {
+        font-size: 22px;
+    }
+
+
+    .payment-container {
+        width: 95%;
+        padding: 25px 15px;
+    }
+
+    .input-pair {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .readonly-input {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .payment-btn {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .account-details {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .account-details h3 {
+        font-size: 20px;
+    }
+
+    .account-details p {
+        font-size: 15px;
+    }
+}
+
+/* ========== 400px and below ========== */
+@media (max-width: 400px) {
+    .payment-page-header {
+        margin-top: 60px;
+        font-size: 16px;
+    }
+
+    .payment-page-header h1 {
+        font-size: 20px;
+    }
+
+    .payment-container {
+        padding: 20px 10px;
+    }
+
+    .readonly-input {
+        font-size: 14px;
+    }
+
+    .payment-btn {
+        font-size: 15px;
+    }
+
+    .account-details h3 {
+        font-size: 18px;
+    }
+
+    .account-details p {
+        font-size: 14px;
+    }
+
+    .header-links a {
+        font-size: 13px;
+    }
+}
+
+/* ========== 340px and below ========== */
+@media (max-width: 340px) {
+    .payment-page-header {
+        margin-top: 60px;
+        font-size: 14px;
+    }
+
+    .payment-page-header h1 {
+        font-size: 18px;
+    }
+
+    .payment-container {
+        padding: 15px 8px;
+    }
+
+    .readonly-input {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .payment-btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .account-details {
+        padding: 10px;
+    }
+
+    .account-details h3 {
+        font-size: 16px;
+    }
+
+    .account-details p,
+    .account-details .note {
+        font-size: 13px;
+    }
+
+    .header-links a {
+        font-size: 12px;
+    }
+}
