@@ -50,7 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Nevada.urls'
@@ -141,9 +140,6 @@ EMAIL_HOST_PASSWORD = "egov blsu qikc sque"
 # EMAIL_HOST_PASSWORD = "vwbi scei yfpm ljtg"  # Use an App Password (NOT your Gmail password)
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
