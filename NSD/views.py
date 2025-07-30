@@ -312,70 +312,85 @@ def REGISTRATION(requests):
 
     error_messages = []
 
-    flag_images = []
+    flag_images = {}
 
     flag_image_path = os.path.join(settings.STATICFILES_DIRS[0], 'images', 'country-flag')
 
-    if os.path.exists(flag_image_path):
+    # if os.path.exists(flag_image_path):
 
-        # Get all image filenames in the directory (Only JPG files)
+    #     # Get all image filenames in the directory (Only JPG files)
+    #     for img in os.listdir(flag_image_path):
+    #         if img.lower().endswith(".jpg"):
+    #             flag_images.append(f"images/country-flag/{img}")
+
+    if os.path.exists(flag_image_path):
         for img in os.listdir(flag_image_path):
             if img.lower().endswith(".jpg"):
-                flag_images.append(f"images/country-flag/{img}")
+                # Normalize filename to match country name lookup
+                country_key = os.path.splitext(img)[0].replace("-", " ").lower()
+                flag_images[country_key] = f"images/country-flag/{img}"
 
     
-    country_codes = [
-        {"code": "+971", "flag": flag_images[0], "name": "United Arab Emirates"},
-        {"code": "+374", "flag": flag_images[1], "name": "Armenia"},
-        {"code": "+61", "flag": flag_images[2], "name": "Australia"},
-        {"code": "+994", "flag": flag_images[3], "name": "Azerbaijan"},
-        {"code": "+880", "flag": flag_images[4], "name": "Bangladesh"},
-        {"code": "+32", "flag": flag_images[5], "name": "Belgium"},
-        {"code": "+359", "flag": flag_images[6], "name": "Bulgaria"},
-        {"code": "+55", "flag": flag_images[7], "name": "Brazil"},
-        {"code": "+1", "flag": flag_images[8], "name": "Canada"},
-        {"code": "+41", "flag": flag_images[9], "name": "Switzerland"},
-        {"code": "+56", "flag": flag_images[10], "name": "Chile"},
-        {"code": "+86", "flag": flag_images[11], "name": "China"},
-        {"code": "+49", "flag": flag_images[12], "name": "Germany"},
-        {"code": "+45", "flag": flag_images[13], "name": "Denmark"},
-        {"code": "+213", "flag": flag_images[14], "name": "Algeria"},
-        {"code": "+372", "flag": flag_images[15], "name": "Estonia"},
-        {"code": "+20", "flag": flag_images[16], "name": "Egypt"},
-        {"code": "+34", "flag": flag_images[17], "name": "Spain"},
-        {"code": "+33", "flag": flag_images[18], "name": "France"},
-        {"code": "+44", "flag": flag_images[19], "name": "United Kingdom"},
-        {"code": "+62", "flag": flag_images[20], "name": "Indonesia"},
-        {"code": "+353", "flag": flag_images[21], "name": "Ireland"},
-        {"code": "+91", "flag": flag_images[22], "name": "India"},
-        {"code": "+98", "flag": flag_images[23], "name": "Iran"},
-        {"code": "+39", "flag": flag_images[24], "name": "Italy"},
-        {"code": "+962", "flag": flag_images[25], "name": "Jordan"},
-        {"code": "+81", "flag": flag_images[26], "name": "Japan"},
-        {"code": "+82", "flag": flag_images[27], "name": "South Korea"},
-        {"code": "+961", "flag": flag_images[28], "name": "Lebanon"},
-        {"code": "+223", "flag": flag_images[29], "name": "Mali"},
-        {"code": "+52", "flag": flag_images[30], "name": "Mexico"},
-        {"code": "+60", "flag": flag_images[31], "name": "Malaysia"},
-        {"code": "+258", "flag": flag_images[32], "name": "Mozambique"},
-        {"code": "+234", "flag": flag_images[33], "name": "Nigeria"},
-        {"code": "+31", "flag": flag_images[34], "name": "Netherlands"},
-        {"code": "+977", "flag": flag_images[35], "name": "Nepal"},
-        {"code": "+64", "flag": flag_images[36], "name": "New Zealand"},
-        {"code": "+63", "flag": flag_images[37], "name": "Philippines"},
-        {"code": "+92", "flag": flag_images[38], "name": "Pakistan"},
-        {"code": "+48", "flag": flag_images[39], "name": "Poland"},
-        {"code": "+7", "flag": flag_images[40], "name": "Russia"},
-        {"code": "+966", "flag": flag_images[41], "name": "Saudi Arabia"},
-        {"code": "+46", "flag": flag_images[42], "name": "Sweden"},
-        {"code": "+963", "flag": flag_images[43], "name": "Syria"},
-        {"code": "+66", "flag": flag_images[44], "name": "Thailand"},
-        {"code": "+90", "flag": flag_images[45], "name": "Turkey"},
-        {"code": "+1", "flag": flag_images[46], "name": "United States"},
-        {"code": "+998", "flag": flag_images[47], "name": "Uzbekistan"},
-        {"code": "+84", "flag": flag_images[48], "name": "Vietnam"},
-        {"code": "+27", "flag": flag_images[49], "name": "South Africa"}
+    raw_country_data = [
+        ("+971", "United Arab Emirates"),
+        ("+374", "Armenia"),
+        ("+61", "Australia"),
+        ("+994", "Azerbaijan"),
+        ("+880", "Bangladesh"),
+        ("+32", "Belgium"),
+        ("+359", "Bulgaria"),
+        ("+55", "Brazil"),
+        ("+1", "Canada"),
+        ("+41", "Switzerland"),
+        ("+56", "Chile"),
+        ("+86", "China"),
+        ("+49", "Germany"),
+        ("+45", "Denmark"),
+        ("+213", "Algeria"),
+        ("+372", "Estonia"),
+        ("+20", "Egypt"),
+        ("+34", "Spain"),
+        ("+33", "France"),
+        ("+44", "United Kingdom"),
+        ("+62", "Indonesia"),
+        ("+353", "Ireland"),
+        ("+91", "India"),
+        ("+98", "Iran"),
+        ("+39", "Italy"),
+        ("+962", "Jordan"),
+        ("+81", "Japan"),
+        ("+82", "South Korea"),
+        ("+961", "Lebanon"),
+        ("+223", "Mali"),
+        ("+52", "Mexico"),
+        ("+60", "Malaysia"),
+        ("+258", "Mozambique"),
+        ("+234", "Nigeria"),
+        ("+31", "Netherlands"),
+        ("+977", "Nepal"),
+        ("+64", "New Zealand"),
+        ("+63", "Philippines"),
+        ("+92", "Pakistan"),
+        ("+48", "Poland"),
+        ("+7", "Russia"),
+        ("+966", "Saudi Arabia"),
+        ("+46", "Sweden"),
+        ("+963", "Syria"),
+        ("+66", "Thailand"),
+        ("+90", "Turkey"),
+        ("+1", "United States"),
+        ("+998", "Uzbekistan"),
+        ("+84", "Vietnam"),
+        ("+27", "South Africa")
     ]
+
+    # Build final list with flags
+    country_codes = []
+    for code, name in raw_country_data:
+        key = name.lower()
+        flag = flag_images.get(key, "images/country-flag/default.jpg")  # fallback
+        country_codes.append({"code": code, "flag": flag, "name": name})
+
 
     country_codes = sorted(country_codes, key=lambda x: x["name"].lower())
 
@@ -627,72 +642,82 @@ def SWIMMING_REGISTRATION(requests):
 
     error_messages = []
 
-    flag_images = []
+    flag_images = {}
 
     flag_image_path = os.path.join(settings.STATICFILES_DIRS[0], 'images', 'country-flag')
 
     if os.path.exists(flag_image_path):
-
-        # Get all image filenames in the directory (Only JPG files)
         for img in os.listdir(flag_image_path):
             if img.lower().endswith(".jpg"):
-                flag_images.append(f"images/country-flag/{img}")
+                # Normalize filename to match country name lookup
+                country_key = os.path.splitext(img)[0].replace("-", " ").lower()
+                flag_images[country_key] = f"images/country-flag/{img}"
 
     
-    country_codes = [
-        {"code": "+971", "flag": flag_images[0], "name": "United Arab Emirates"},
-        {"code": "+374", "flag": flag_images[1], "name": "Armenia"},
-        {"code": "+61", "flag": flag_images[2], "name": "Australia"},
-        {"code": "+994", "flag": flag_images[3], "name": "Azerbaijan"},
-        {"code": "+880", "flag": flag_images[4], "name": "Bangladesh"},
-        {"code": "+32", "flag": flag_images[5], "name": "Belgium"},
-        {"code": "+359", "flag": flag_images[6], "name": "Bulgaria"},
-        {"code": "+55", "flag": flag_images[7], "name": "Brazil"},
-        {"code": "+1", "flag": flag_images[8], "name": "Canada"},
-        {"code": "+41", "flag": flag_images[9], "name": "Switzerland"},
-        {"code": "+56", "flag": flag_images[10], "name": "Chile"},
-        {"code": "+86", "flag": flag_images[11], "name": "China"},
-        {"code": "+49", "flag": flag_images[12], "name": "Germany"},
-        {"code": "+45", "flag": flag_images[13], "name": "Denmark"},
-        {"code": "+213", "flag": flag_images[14], "name": "Algeria"},
-        {"code": "+372", "flag": flag_images[15], "name": "Estonia"},
-        {"code": "+20", "flag": flag_images[16], "name": "Egypt"},
-        {"code": "+34", "flag": flag_images[17], "name": "Spain"},
-        {"code": "+33", "flag": flag_images[18], "name": "France"},
-        {"code": "+44", "flag": flag_images[19], "name": "United Kingdom"},
-        {"code": "+62", "flag": flag_images[20], "name": "Indonesia"},
-        {"code": "+353", "flag": flag_images[21], "name": "Ireland"},
-        {"code": "+91", "flag": flag_images[22], "name": "India"},
-        {"code": "+98", "flag": flag_images[23], "name": "Iran"},
-        {"code": "+39", "flag": flag_images[24], "name": "Italy"},
-        {"code": "+962", "flag": flag_images[25], "name": "Jordan"},
-        {"code": "+81", "flag": flag_images[26], "name": "Japan"},
-        {"code": "+82", "flag": flag_images[27], "name": "South Korea"},
-        {"code": "+961", "flag": flag_images[28], "name": "Lebanon"},
-        {"code": "+223", "flag": flag_images[29], "name": "Mali"},
-        {"code": "+52", "flag": flag_images[30], "name": "Mexico"},
-        {"code": "+60", "flag": flag_images[31], "name": "Malaysia"},
-        {"code": "+258", "flag": flag_images[32], "name": "Mozambique"},
-        {"code": "+234", "flag": flag_images[33], "name": "Nigeria"},
-        {"code": "+31", "flag": flag_images[34], "name": "Netherlands"},
-        {"code": "+977", "flag": flag_images[35], "name": "Nepal"},
-        {"code": "+64", "flag": flag_images[36], "name": "New Zealand"},
-        {"code": "+63", "flag": flag_images[37], "name": "Philippines"},
-        {"code": "+92", "flag": flag_images[38], "name": "Pakistan"},
-        {"code": "+48", "flag": flag_images[39], "name": "Poland"},
-        {"code": "+7", "flag": flag_images[40], "name": "Russia"},
-        {"code": "+966", "flag": flag_images[41], "name": "Saudi Arabia"},
-        {"code": "+46", "flag": flag_images[42], "name": "Sweden"},
-        {"code": "+963", "flag": flag_images[43], "name": "Syria"},
-        {"code": "+66", "flag": flag_images[44], "name": "Thailand"},
-        {"code": "+90", "flag": flag_images[45], "name": "Turkey"},
-        {"code": "+1", "flag": flag_images[46], "name": "United States"},
-        {"code": "+998", "flag": flag_images[47], "name": "Uzbekistan"},
-        {"code": "+84", "flag": flag_images[48], "name": "Vietnam"},
-        {"code": "+27", "flag": flag_images[49], "name": "South Africa"}
+    raw_country_data = [
+        ("+971", "United Arab Emirates"),
+        ("+374", "Armenia"),
+        ("+61", "Australia"),
+        ("+994", "Azerbaijan"),
+        ("+880", "Bangladesh"),
+        ("+32", "Belgium"),
+        ("+359", "Bulgaria"),
+        ("+55", "Brazil"),
+        ("+1", "Canada"),
+        ("+41", "Switzerland"),
+        ("+56", "Chile"),
+        ("+86", "China"),
+        ("+49", "Germany"),
+        ("+45", "Denmark"),
+        ("+213", "Algeria"),
+        ("+372", "Estonia"),
+        ("+20", "Egypt"),
+        ("+34", "Spain"),
+        ("+33", "France"),
+        ("+44", "United Kingdom"),
+        ("+62", "Indonesia"),
+        ("+353", "Ireland"),
+        ("+91", "India"),
+        ("+98", "Iran"),
+        ("+39", "Italy"),
+        ("+962", "Jordan"),
+        ("+81", "Japan"),
+        ("+82", "South Korea"),
+        ("+961", "Lebanon"),
+        ("+223", "Mali"),
+        ("+52", "Mexico"),
+        ("+60", "Malaysia"),
+        ("+258", "Mozambique"),
+        ("+234", "Nigeria"),
+        ("+31", "Netherlands"),
+        ("+977", "Nepal"),
+        ("+64", "New Zealand"),
+        ("+63", "Philippines"),
+        ("+92", "Pakistan"),
+        ("+48", "Poland"),
+        ("+7", "Russia"),
+        ("+966", "Saudi Arabia"),
+        ("+46", "Sweden"),
+        ("+963", "Syria"),
+        ("+66", "Thailand"),
+        ("+90", "Turkey"),
+        ("+1", "United States"),
+        ("+998", "Uzbekistan"),
+        ("+84", "Vietnam"),
+        ("+27", "South Africa")
     ]
 
+    # Build final list with flags
+    country_codes = []
+    for code, name in raw_country_data:
+        key = name.lower()
+        flag = flag_images.get(key, "images/country-flag/default.jpg")  # fallback
+        country_codes.append({"code": code, "flag": flag, "name": name})
+
+
     country_codes = sorted(country_codes, key=lambda x: x["name"].lower())
+
+
 
     if requests.method == "POST":
         surname = requests.POST.get('surname').strip()

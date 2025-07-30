@@ -258,7 +258,7 @@
 
     display: flex;
     /* width: calc(100vw * {{ hero_images|length }});; */
-    width: 400vw; /* Tried vw instead of % */
+    width: 300vw; /* Tried vw instead of % */
     height: 85%;
     transition: transform 1s ease-in-out;
 }
@@ -1266,7 +1266,7 @@ textarea {
     }
 
     .hero-slider {
-        width: 400vw; /* Adjust width dynamically */
+        width: 300vw; /* Adjust width dynamically */
         height: 60vh;
     }
 
@@ -1505,7 +1505,7 @@ textarea {
     }
 
     .hero-slider {
-        width: 400vw; /* Adjust width dynamically */
+        width: 300vw; /* Adjust width dynamically */
         height: 50vh;
     }
 
